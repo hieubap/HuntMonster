@@ -14,7 +14,7 @@ public class Monster {
     public static final int PIXEL = EnvironmentVariable.PIXEL;
     public static final int maxBlood = EnvironmentVariable.MAX_BLOOD_MONSTER;
     private static final int rangePlayer = 500;
-    public static int blood = maxBlood;
+    public int blood = maxBlood;
 
     private int direction, timeStop = 0;
     private boolean stop = false;

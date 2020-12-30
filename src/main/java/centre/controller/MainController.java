@@ -54,7 +54,7 @@ public class MainController extends JFrame {
     private int target, chooseTarget, timeCountAddMonster = 0;
     private ArrayList<Integer> monsterTarget = new ArrayList<Integer>();
 
-    private boolean isCreateMonster = false, isCreateNewArrow = false;
+    private boolean isCreateMonster = true, isCreateNewArrow = false;
     private MiniMap minimap;
     private Graphics graphics;
     private BufferStrategy buffer;
@@ -117,10 +117,10 @@ public class MainController extends JFrame {
         }
 
         // update monster
-//        for (int i = 0; i < monster.size(); i++) {
-//            monster.get(i).update(this);
-//            monster.get(i).isTarget(this);
-//        }
+        for (int i = 0; i < monster.size(); i++) {
+            monster.get(i).update(this);
+            monster.get(i).isTarget(this);
+        }
 
         chooseTarget = -1;
 

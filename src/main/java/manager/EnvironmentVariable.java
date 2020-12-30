@@ -43,9 +43,9 @@ public class EnvironmentVariable {
     public static final int DAMAGE_ARROW = 100;
 
     // monster
-    public static final int DELAY_CREATE_MONSTER_ = 50;
-    public static final int TIME_END_CREATE_MONSTER_ = 100;
-    public static final int MAX_BLOOD_MONSTER = 10;
+    public static final int DELAY_CREATE_MONSTER_ = 100;
+    public static final int TIME_END_CREATE_MONSTER_ = 10000;
+    public static final int MAX_BLOOD_MONSTER = 1000;
 
     // gem
     public static final double SCALE_CREATE_GEM_GREEN_ = 80;

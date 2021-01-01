@@ -1,4 +1,4 @@
-package support;
+package my_lib;
 
 public class Vector {
     public double positionX, positionY, length;

@@ -1,6 +1,7 @@
 package centre;
 
 import centre.controller.MainController;
+import my_lib.VariableEnvironment;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,9 +29,10 @@ public class Mouse extends MouseAdapter {
     }
 
     public void updateMouse(MainController game) {
-        if (game.getRender().isDesign() && settype && settile && !setMap.contains(xPosition, yPosition)) {
-            game.getMap().addTile((xPosition + game.getCamera().x) / 64 * 64,
-                    (yPosition + game.getCamera().y) / 64 * 64, tilex, tiley);
+        if (game.getMapEdit().isDesign && settype && settile && !setMap.contains(xPosition, yPosition)) {
+            int pixel = VariableEnvironment.PIXEL_GAME;
+            game.getMapEdit().dataMap[(xPosition + game.getCamera().positionX) / pixel * pixel]
+                    [(yPosition + game.getCamera().positionY) / pixel * pixel] = tilex * 100 + tiley;
             settile = false;
         }
     }

@@ -1,14 +1,14 @@
 package gem;
 
-import animation.Sprite;
-import manager.ImageRenderHandle;
 import centre.controller.MainController;
+import my_lib.ImageRender;
+import my_lib.Sprite;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
 public class Gem {
-	public static Sprite sprite;
+	public Sprite sprite;
 	protected int experienceOfGem = 1;
 	public int xPosition,yPosition;
 	protected boolean isTake=false;
@@ -41,7 +41,7 @@ public class Gem {
 	protected void addUpdate(){
 	}
 	protected void addUpdate(MainController mainController){}
-	public void render(ImageRenderHandle render) {
+	public void render(ImageRender render) {
 		if(isTake) {
 			return;
 		}

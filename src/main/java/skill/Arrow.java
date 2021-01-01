@@ -1,9 +1,11 @@
 package skill;
 
-import manager.ImageRenderHandle;
 import centre.controller.MainController;
 import manager.EnvironmentVariable;
 import manager.ImageManager;
+import my_lib.ImageRender;
+import my_lib.Sprite;
+import my_lib.VariableEnvironment;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,7 +85,7 @@ public class Arrow implements ActionListener {
         }
     }
 
-    public void render(ImageRenderHandle render) {
+    public void render(ImageRender render) {
         switch (direction) {
             case 0: {
                 render.renderSprite(ImageManager.arrowSprite4Direction[0], xPosition, yPosition, 1, 1);
@@ -105,7 +107,7 @@ public class Arrow implements ActionListener {
     }
 
     public boolean isDestroy() {
-        if (xPosition > 2000 || yPosition > 2000 || xPosition < 0 || yPosition < 0)
+        if (xPosition > VariableEnvironment.SIZE_MAP_X || yPosition > VariableEnvironment.SIZE_MAP_Y || xPosition < 0 || yPosition < 0)
             return true;
         return false;
     }

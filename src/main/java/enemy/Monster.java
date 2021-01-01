@@ -5,6 +5,9 @@ import centre.controller.MainController;
 import manager.EnvironmentVariable;
 import manager.ImageManager;
 import manager.ImageRenderHandle;
+import my_lib.Animation;
+import my_lib.ImageRender;
+import my_lib.VariableEnvironment;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -21,10 +24,10 @@ public class Monster {
     private boolean dead = false, attack = false;
     public int positionX, positionY;
 
-    private AnimationSheet animation;
+    private Animation animation;
 
     public Monster(int xPosition, int yPosition, int type, boolean mother) {
-        animation = new AnimationSheet(ImageManager.monsterSheet, 13);
+        animation = new Animation(ImageManager.monsterSheet, 13);
 
         this.positionX = xPosition;
         this.positionY = yPosition;
@@ -162,12 +165,12 @@ public class Monster {
                     break;
                 }
                 case 2: {
-                    if (positionY < 2000)
+                    if (positionY < VariableEnvironment.SIZE_MAP_Y)
                         positionY += 1;
                     break;
                 }
                 case 3: {
-                    if (positionX < 2000)
+                    if (positionX < VariableEnvironment.SIZE_MAP_Y)
                         positionX += 1;
                     break;
                 }
@@ -176,12 +179,12 @@ public class Monster {
         animation.update();
     }
 
-    public void render(ImageRenderHandle imageRenderHandle, int zoomX, int zoomY) {
+    public void render(ImageRender imageRenderHandle, int zoomX, int zoomY) {
         double wArray = (double)(blood*PIXEL)/maxBlood;
         int[] arrayBlood = new int[(int)wArray * PIXEL * 3];
         Arrays.fill(arrayBlood, Color.RED.getRGB()|0xFF000000);
 
-        imageRenderHandle.renderArray(arrayBlood, (int)wArray, 3, positionX, positionY - 5, 1, 1);
+        imageRenderHandle.renderArrayInt(arrayBlood, (int)wArray, 3, positionX, positionY - 5, 1, 1);
         animation.render(imageRenderHandle, positionX, positionY, zoomX, zoomY);
 
         arrayBlood = null;

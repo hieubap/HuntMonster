@@ -1,14 +1,17 @@
 package centre.controller;
 
-import centre.Rectangle;
-import centre.*;
+import centre.KeyBoard;
+import centre.Mouse;
+import centre.UpgradeStore;
 import enemy.Monster;
 import gem.Gem;
 import gem.GreenGem;
 import manager.EnvironmentVariable;
 import manager.ImageRenderHandle;
-import map.Map;
 import map.MiniMap;
+import my_lib.Camera;
+import my_lib.ImageRender;
+import my_lib.MapEdit;
 import player.AttributeGame;
 import player.Player;
 import skill.SkillManager;
@@ -48,11 +51,11 @@ public class MainController extends JFrame {
 
     private KeyBoard key;
     private Mouse mouse;
-    private Map map;
+    private MapEdit map;
 
     public SkillManager skillManager;
     private int target, chooseTarget, timeCountAddMonster = 0;
-    private ArrayList<Integer> monsterTarget = new ArrayList<Integer>();
+    private ArrayList<Integer> monsterOnRange = new ArrayList<Integer>();
 
     private boolean isCreateMonster = true, isCreateNewArrow = false;
     private MiniMap minimap;
@@ -75,7 +78,6 @@ public class MainController extends JFrame {
         canvas.createBufferStrategy(3);
 
         System.out.println(this.getClass().getResource(""));
-        map = new Map();
 
         // create monster
         for (int i = 0; i < 2; i++)
@@ -84,6 +86,7 @@ public class MainController extends JFrame {
         buffer = canvas.getBufferStrategy();
         graphics = buffer.getDrawGraphics();
         renderer = new ImageRenderHandle(EnvironmentVariable.WIDTH, EnvironmentVariable.HEIGHT);
+        map = new MapEdit(getCamera());
         minimap = new MiniMap(this);
 
         // create gem
@@ -96,7 +99,8 @@ public class MainController extends JFrame {
         player = new Player(1500, 1500);
         skillManager = new SkillManager(this);
 
-        canvas.addMouseListener(mouse);
+        canvas.addMouseListener(map);
+        canvas.addKeyListener(map);
         canvas.addKeyListener(key);
         canvas.addKeyListener(player);
         this.setFocusable(true);
@@ -124,19 +128,20 @@ public class MainController extends JFrame {
 
         chooseTarget = -1;
 
-        for (int i = 0; i < monsterTarget.size(); i++)
-            if (monsterTarget.get(i) != 0) {
-                target = monsterTarget.get(i);
+        for (int i = 0; i < monsterOnRange.size(); i++)
+            if (monsterOnRange.get(i) != 0) {
+                target = monsterOnRange.get(i);
                 chooseTarget = i;
 
-                for (int j = i; j < monsterTarget.size(); j++)
-                    if (monsterTarget.get(j) != 0 && monsterTarget.get(j) < target) {
-                        target = monsterTarget.get(j);
+                for (int j = i; j < monsterOnRange.size(); j++)
+                    if (monsterOnRange.get(j) != 0 && monsterOnRange.get(j) < target) {
+                        target = monsterOnRange.get(j);
+                        skillManager.indexTargetMonster = j;
                         chooseTarget = j;
                     }
                 break;
             }
-        monsterTarget.clear();
+        monsterOnRange.clear();
 
         // update player
         if (chooseTarget != -1) {
@@ -172,23 +177,22 @@ public class MainController extends JFrame {
 
     public void render() {
         renderer.reset();
-        map.render(renderer);
+        map.drawMap(renderer);
 
         minimap.render(renderer);
 
         skillManager.render(renderer);
-        if (renderer.isDesign())
-            renderer.renderDesign();
 
         for (Gem t : gemArrayList)
             t.render(renderer);
 
-        for (Monster m : monster)
-            m.render(renderer, 1, 1);
+        for (int i = 0;i<monster.size();i++)
+            monster.get(i).render(renderer, 1, 1);
 
         player.render(renderer);
         if (isUpgrade)
             renderer.setTransient(0x70);
+        map.drawDesign(renderer);
     }
 
     public void draw() {
@@ -196,7 +200,7 @@ public class MainController extends JFrame {
         graphics = buffer.getDrawGraphics();
         super.paint(graphics);
 
-        renderer.renderGame(graphics, this);
+        renderer.renderGame(graphics,this);
         if (isUpgrade){
             upgradeStore.draw(graphics);
         }
@@ -211,20 +215,20 @@ public class MainController extends JFrame {
         threadGame.start();
     }
 
-    public Rectangle getCamera() {
+    public Camera getCamera() {
         return renderer.camera;
     }
 
-    public Map getMap() {
+    public MapEdit getMapEdit() {
         return map;
     }
 
-    public ImageRenderHandle getRender() {
+    public ImageRender getRender() {
         return renderer;
     }
 
     public void setTarget(int x, int y) {
-        monsterTarget.add(x + y);
+        monsterOnRange.add(x + y);
     }
 
     public ArrayList<Monster> getMonster() {

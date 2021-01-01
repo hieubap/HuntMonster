@@ -1,11 +1,13 @@
 package player;
 
-import animation.AnimationSheet;
-import manager.ImageRenderHandle;
 import centre.Rectangle;
 import centre.controller.MainController;
 import manager.EnvironmentVariable;
 import manager.ImageManager;
+import my_lib.Animation;
+import my_lib.Direction;
+import my_lib.ImageRender;
+import my_lib.VariableEnvironment;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -22,7 +24,7 @@ public class Player extends KeyAdapter {
     public final int width = 64, height = 64;
     public double xPosition, yPosition;
     public Direction direction;
-    private AnimationSheet animationSheet;
+    private Animation animationSheet;
     private int mode;
     public boolean dead = false;
     public boolean hasTarget = false;
@@ -35,19 +37,19 @@ public class Player extends KeyAdapter {
         direction = new Direction(INIT_DIRECTION);
         mode = INIT_MODE_PLAYER;
 
-        animationSheet = new AnimationSheet(ImageManager.adSheet, SPEED_ANIMATION_PLAYER);
+        animationSheet = new Animation(ImageManager.adSheet, SPEED_ANIMATION_PLAYER);
         animationSheet.end = 1;
     }
 
     public void update(MainController game) {
-        game.getCamera().x = (int)xPosition - game.getCamera().w / 2;
-        game.getCamera().y = (int)yPosition - game.getCamera().h / 2;
+        game.getCamera().positionX = (int)xPosition - game.getCamera().getWidth() / 2;
+        game.getCamera().positionY = (int)yPosition - game.getCamera().getHeight() / 2;
 
         // move
         if (direction.moveUp && yPosition >= 0) yPosition -= SPEED;
         if (direction.moveLeft && xPosition >= 0) xPosition -= SPEED;
-        if (direction.moveDown && yPosition <= 2000) yPosition += SPEED;
-        if (direction.moveRight && xPosition <= 2000) xPosition += SPEED;
+        if (direction.moveDown && yPosition < VariableEnvironment.SIZE_MAP_Y-PIXEL) yPosition += SPEED;
+        if (direction.moveRight && xPosition < VariableEnvironment.SIZE_MAP_X-PIXEL) xPosition += SPEED;
 
         int directionRender = direction.getDirectionNumber() + mode; // determined index start at sprite array on sheet
 
@@ -62,9 +64,9 @@ public class Player extends KeyAdapter {
         hasTarget = true;
     }
 
-    public void render(ImageRenderHandle render) {
+    public void render(ImageRender render) {
         if (hasTarget) {
-            render.renderArray(targetBorder.getPixels(), targetBorder.w, targetBorder.h, targetBorder.x, targetBorder.y, 1, 1);
+            render.renderArrayInt(targetBorder.getPixels(), targetBorder.w, targetBorder.h, targetBorder.x, targetBorder.y, 1, 1);
         }
         animationSheet.render(render, (int)xPosition, (int)yPosition, 1, 1);
     }
@@ -144,16 +146,16 @@ public class Player extends KeyAdapter {
         System.gc();
         switch (i) {
             case 0 -> {
-                animationSheet = new AnimationSheet(ImageManager.warriorSheet, SPEED_ANIMATION_PLAYER);
+                animationSheet = new Animation(ImageManager.warriorSheet, SPEED_ANIMATION_PLAYER);
             }
             case 1 -> {
-                animationSheet = new AnimationSheet(ImageManager.adSheet, SPEED_ANIMATION_PLAYER);
+                animationSheet = new Animation(ImageManager.adSheet, SPEED_ANIMATION_PLAYER);
             }
             case 2 -> {
-                animationSheet = new AnimationSheet(ImageManager.spellSheet, SPEED_ANIMATION_PLAYER);
+                animationSheet = new Animation(ImageManager.spellSheet, SPEED_ANIMATION_PLAYER);
             }
             case 3 -> {
-                animationSheet = new AnimationSheet(ImageManager.playerSheet, SPEED_ANIMATION_PLAYER);
+                animationSheet = new Animation(ImageManager.playerSheet, SPEED_ANIMATION_PLAYER);
             }
         }
     }

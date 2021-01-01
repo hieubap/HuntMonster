@@ -1,7 +1,7 @@
 package centre;
 
-import animation.Sprite;
 import manager.ImageManager;
+import my_lib.Sprite;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

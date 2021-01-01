@@ -1,12 +1,20 @@
 package manager;
 
+import my_lib.VariableEnvironment;
+
 import java.awt.*;
 
 public class EnvironmentVariable {
-    public static final String PATHRESOUREASSET = "D:\\IntelliJ\\Universal\\src\\asset";
+    public static final String PATHRESOUREASSET = "D:\\IntelliJ\\HuntMonster\\src\\main\\java\\asset";
     // environment
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 800;
+    public static final int WIDTH_MINI_MAP = 200;
+    public static final int HEIGHT_MINI_MAP = 200;
+    public static final double SCALE_MAP_TO_MINI_MAP_X = (double)WIDTH_MINI_MAP/ VariableEnvironment.SIZE_MAP_X;
+    public static final double SCALE_MAP_TO_MINI_MAP_Y = (double)HEIGHT_MINI_MAP/ VariableEnvironment.SIZE_MAP_Y;
+
+
     public static final int FPS = 60;
     public static final int DELAYPROCESS = 1000 / FPS;
     public static final Color COLOR_BACKGROUND_LIGHT = new Color(0x91b09a);
@@ -23,12 +31,12 @@ public class EnvironmentVariable {
 
     // map
     public static final int PIXEL = 64;
-    public static final int PIXEL_DESIGN = 20;
-    public static final int NUMBER_SPRITE_WIDTH = 24;
-    public static final int NUMBER_SPRITE_HEIGHT = 10;
+    public static final int PIXEL_DESIGN = 10;
+    public static final int NUMBER_SPRITE_WIDTH = 32;
+    public static final int NUMBER_SPRITE_HEIGHT = 32;
 
     //player
-    public static final int SPEED_PLAYER = 2;
+    public static final int SPEED_PLAYER = 10;
     public static final int INIT_MODE_PLAYER_ = 8;
     public static final int INIT_DIRECTION_ = 3;
     public static final int SPEED_ANIMATION_PLAYER_ = 20;
@@ -44,7 +52,7 @@ public class EnvironmentVariable {
 
     // monster
     public static final int DELAY_CREATE_MONSTER_ = 100;
-    public static final int TIME_END_CREATE_MONSTER_ = 10000;
+    public static final int TIME_END_CREATE_MONSTER_ = 100000;
     public static final int MAX_BLOOD_MONSTER = 1000;
 
     // gem

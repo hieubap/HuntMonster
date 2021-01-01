@@ -3,8 +3,9 @@ package skill;
 import manager.ImageRenderHandle;
 import centre.Rectangle;
 import centre.controller.MainController;
+import my_lib.ImageRender;
 import player.Player;
-import support.Vector;
+import my_lib.Vector;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,7 +28,7 @@ public class SkillManager {
     private boolean r, activeSkill2 = false, activeSkill1 = false;
 
     // skill 3
-    public int targetX, targetY;
+    public int targetX, targetY ,indexTargetMonster;
     public Vector vectorToTarget;
     private final Player player;
     private final MainController mainController;
@@ -54,7 +55,10 @@ public class SkillManager {
                 player.yPosition += vectorToTarget.positionY;
 
                 if (Math.abs(player.xPosition - targetX) < 20 && Math.abs(player.yPosition - targetY) < 20)
+                {
+                    mainController.getMonster().remove(indexTargetMonster);
                     timeSkill3.stop();
+                }
             }
         });
 
@@ -77,13 +81,13 @@ public class SkillManager {
         }
     }
 
-    public void render(ImageRenderHandle render) {
+    public void render(ImageRender render) {
         if (activeSkill1) {
             for (int i = 0; i < arrow.size(); i++)
                 arrow.get(i).render(render);
         }
         if (activeSkill2) {
-            render.renderArray(tickRectPositionSkill2.getPixels(), 20, 20, tickPointX, tickPointY, 1, 1);
+            render.renderArrayInt(tickRectPositionSkill2.getPixels(), 20, 20, tickPointX, tickPointY, 1, 1);
         }
     }
 

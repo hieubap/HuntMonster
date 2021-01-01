@@ -52,14 +52,14 @@ public class KeyBoard extends KeyAdapter implements KeyListener, FocusListener {
     }
 
     public void control(MainController game) {
-        if (k[KeyEvent.VK_M]) {
-            game.getMap().saveMap();
-            k[KeyEvent.VK_M] = false;
-        }
-        if (k[KeyEvent.VK_N]) {
-            game.getRender().changeDesign();
-            k[KeyEvent.VK_N] = false;
-        }
+//        if (k[KeyEvent.VK_M]) {
+//            game.getMapEdit().saveMap();
+//            k[KeyEvent.VK_M] = false;
+//        }
+//        if (k[KeyEvent.VK_N]) {
+//            game.getMapEdit().isDesign = !game.getMapEdit().isDesign;
+//            k[KeyEvent.VK_N] = false;
+//        }
 
         // skill
         if (k[KeyEvent.VK_W]) {

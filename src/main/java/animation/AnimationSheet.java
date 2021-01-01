@@ -1,7 +1,9 @@
 package animation;
 
-import manager.ImageRenderHandle;
 import manager.EnvironmentVariable;
+import my_lib.ImageRender;
+import my_lib.Sheet;
+import my_lib.Sprite;
 
 public class AnimationSheet {
     private static final int PIXEL = EnvironmentVariable.PIXEL;
@@ -20,9 +22,9 @@ public class AnimationSheet {
         line = sheet.getLine();
         sprite = new Sprite[column * line];
 
-        for (int i = 0; i < line; i++)
-            for (int j = 0; j < column; j++)
-                sprite[i * column + j] = new Sprite(sheet, j * PIXEL, i * PIXEL, PIXEL,PIXEL);
+//        for (int i = 0; i < line; i++)
+//            for (int j = 0; j < column; j++)
+//                sprite[i * column + j] = new Sprite(sheet, j * PIXEL, i * PIXEL, PIXEL,PIXEL);
     }
 
     public AnimationSheet(int column, int line) {
@@ -47,7 +49,7 @@ public class AnimationSheet {
         }
     }
 
-    public void render(ImageRenderHandle imageRenderHandle, int positionX,int positionY,int zoomX, int zoomY) {
+    public void render(ImageRender imageRenderHandle, int positionX, int positionY, int zoomX, int zoomY) {
         imageRenderHandle.renderSprite(sprite[current], positionX, positionY, zoomX, zoomY);
     }
 }

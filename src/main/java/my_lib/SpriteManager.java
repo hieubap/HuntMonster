@@ -1,7 +1,4 @@
-package manager;
-
-import my_lib.Sheet;
-import my_lib.Sprite;
+package my_lib;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,67 +8,24 @@ import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 
-import static manager.EnvironmentVariable.PIXEL;
+import static manager.EnvironmentVariable.PATHRESOUREASSET;
 
-public class ImageManager {
-    public static String resourcePath = EnvironmentVariable.PATHRESOUREASSET;
-
-    public static Sheet monsterSheet;
-    public static Sheet playerSheet;
-    public static Sheet adSheet;
-    public static Sheet warriorSheet;
-    public static Sheet spellSheet;
-    // weapon
-    public static Sprite[] arrowSprite4Direction; // up left down right
-
-    // map object
-    public static Sprite mapImage;
-
-    // gem
-    public static final Sprite greenGemSheet;
-    public static final Sprite pinkGemSheet;
-    public static final Sprite redGemSheet;
-    public static final Sprite blueGemSheet;
-    public static final Sprite yellowGemSheet;
-
+public class SpriteManager {
+    public static Sprite mapSprite;
 
     static {
-        // weapon
-        arrowSprite4Direction = new Sprite[4];
-        arrowSprite4Direction[0] = new Sprite(loadImage("/muiten-up.png"));
-        arrowSprite4Direction[1] = new Sprite(loadImage("/muiten.png"));
-        arrowSprite4Direction[2] = new Sprite(loadImage("/muiten-down.png"));
-        arrowSprite4Direction[3] = new Sprite(loadImage("/muiten-right.png"));
-
-        // player
-        playerSheet = new Sheet(loadImage("/oldman.png"), PIXEL, PIXEL);
-        warriorSheet = new Sheet(loadImage("/warior.png"), PIXEL, PIXEL);
-        adSheet = new Sheet(loadImage("/adcharacter.png"), PIXEL, PIXEL);
-        spellSheet = new Sheet(loadImage("/spell.png"), PIXEL, PIXEL);
-
-        monsterSheet = new Sheet(loadImage("/monster.png"), PIXEL, PIXEL);
-        mapImage = new Sprite(loadImage("/terrain.png"));
-
-        // gem
-        greenGemSheet = new Sprite(eraserBackgroundImage(loadImage("/Gem/green.png"), 0xFF000000));
-        pinkGemSheet = new Sprite(eraserBackgroundImage(loadImage("/Gem/pink.png"), 0xFF000000));
-        redGemSheet = new Sprite(eraserBackgroundImage(loadImage("/Gem/red.png"), 0xFF000000));
-        blueGemSheet = new Sprite(eraserBackgroundImage(loadImage("/Gem/blue.png"), 0xFF000000));
-        yellowGemSheet = new Sprite(eraserBackgroundImage(loadImage("/Gem/yellow.png"), 0xFF000000));
-
+        mapSprite = new Sprite(SpriteManager.loadImage(VariableEnvironment.PATH_MAP_IMAGE));
     }
 
     public static BufferedImage loadImage(String path) {
-
         try {
-            BufferedImage loadedImage = ImageIO.read(new File(resourcePath + path));
+            BufferedImage loadedImage = ImageIO.read(new File(PATHRESOUREASSET + path));
             BufferedImage formatImage = new BufferedImage(loadedImage.getWidth(),
                     loadedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
             formatImage.getGraphics().drawImage(loadedImage, 0, 0, null);
 
             return formatImage;
-
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -124,7 +78,6 @@ public class ImageManager {
 
         AffineTransform af = AffineTransform.getRotateInstance(Math.PI / 2);
         af.translate(0, -image.getWidth());
-//        af.setToScale(1,1);
 
         g2d.transform(af);
         g2d.drawImage(image, 0, 0, image.getHeight(), image.getWidth(), null);

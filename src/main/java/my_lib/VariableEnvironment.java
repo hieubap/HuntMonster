@@ -1,5 +1,7 @@
 package my_lib;
 
+import manager.EnvironmentVariable;
+
 import java.awt.*;
 
 public class VariableEnvironment {
@@ -13,9 +15,9 @@ public class VariableEnvironment {
     public static final int DELAYPROCESS = 1000 / FPS;
 
     public static final String PATHRESOUREASSET = "D:/IntelliJ/HuntMonster/src/main/java/asset";
-    public static final String PATH_FILE_SAVE_MAP_DATA = "D:/IntelliJ/HuntMonster/src/main/java/asset/dataMap2.txt";
-    public static final String PATH_FILE_OPEN_MAP_DATA = "D:/IntelliJ/HuntMonster/src/main/java/asset/dataMap2.txt";
-    public static final String PATH_MAP_IMAGE = "/terrain.png";
+    public static final String PATH_FILE_SAVE_MAP_DATA = EnvironmentVariable.RESOURCE_PATH + "/asset/dataMap.txt";
+    public static final String PATH_FILE_OPEN_MAP_DATA = EnvironmentVariable.RESOURCE_PATH + "/asset/dataMap.txt";
+    public static final String PATH_MAP_IMAGE = "/mapSprite.png";
 
 
 

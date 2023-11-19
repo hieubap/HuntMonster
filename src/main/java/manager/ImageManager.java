@@ -50,7 +50,7 @@ public class ImageManager {
         spellSheet = new Sheet(loadImage("/spell.png"), PIXEL, PIXEL);
 
         monsterSheet = new Sheet(loadImage("/monster.png"), PIXEL, PIXEL);
-        mapImage = new Sprite(loadImage("/terrain.png"));
+        mapImage = new Sprite(loadImage("/mapSprite.png"));
 
         // gem
         greenGemSheet = new Sprite(eraserBackgroundImage(loadImage("/Gem/green.png"), 0xFF000000));
@@ -64,6 +64,7 @@ public class ImageManager {
     public static BufferedImage loadImage(String path) {
 
         try {
+            System.out.println(resourcePath + path);
             BufferedImage loadedImage = ImageIO.read(new File(resourcePath + path));
             BufferedImage formatImage = new BufferedImage(loadedImage.getWidth(),
                     loadedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);

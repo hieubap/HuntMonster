@@ -5,7 +5,8 @@ import my_lib.VariableEnvironment;
 import java.awt.*;
 
 public class EnvironmentVariable {
-    public static final String PATHRESOUREASSET = "D:\\IntelliJ\\HuntMonster\\src\\main\\java\\asset";
+    public static final String RESOURCE_PATH = "/Users/macintosh/Data/ME/HuntMonster/src/main/java";
+    public static final String PATHRESOUREASSET = RESOURCE_PATH + "/asset";
     // environment
     public static final int WIDTH = 1000;
     public static final int HEIGHT = 800;
